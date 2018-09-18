@@ -11,7 +11,7 @@
       <el-table-column prop="nickname" label="姓名" width="130"></el-table-column>
       <el-table-column prop="createdTime" label="日期" width="210"></el-table-column>
       <el-table-column prop="desc" label="个性签名" width="350"></el-table-column>
-      <el-table-column prop="" label="用户头像" width="100" height="100">
+      <el-table-column prop="" label="用户头像" width="200" height="100">
         <template slot-scope="scope">
           <img :src="scope.row.avatar" class="avatar">
         </template>
@@ -23,15 +23,24 @@
         </template>
       </el-table-column>
     </el-table>
+
+    <el-pagination 
+    background
+    @current-change="pageChange" 
+    layout="prev,pager,next"
+    :page-size="5" 
+    :total="count">
+    </el-pagination>
   </div>
 </template>
 
 <script>
 export default {
-  name:'',
   data() {
     return {
       tableData:[],
+      count:0,
+      page:1
     }
    },
   components: {
@@ -39,9 +48,10 @@ export default {
   },
   methods: {
     getData(){
-      this.$axios.get('/user').then(res => {
+      this.$axios.get('/user',{pn:this.page,size:5}).then(res => {
         console.log(res);
         if(res.code == 200){
+          this.count = res.count
           this.tableData = res.data
         }
       })
@@ -49,12 +59,12 @@ export default {
     handleDetails () {
       this.$router.push('/layout/userDetails')
     },
-    handleDelete () {
+    handleDelete (id) {
       this.$confirm('此操作将永久删除该管理员信息，是否继续?','警告',{
         confirmButtonText:'确定',
         cancelButtonText:'取消',
         type:'warning'
-      }).then(() => {
+      }).then((res) => {
         this.$axios.post('/user/delete',{userIds:[id]}).then(res => {
           if(res.code == 200){
             this.$message.success(res.msg)
@@ -67,6 +77,11 @@ export default {
           })
         })
       })
+    },
+    pageChange (page) {
+      // console.log(page);
+      this.page = page;
+      this.getData()
     }
   },
   created () {
@@ -76,14 +91,22 @@ export default {
 </script>
 
 <style scoped>
+.breadcrumb{
+  position: relative;
+}
 .table{
   margin-top: 20px;
 }
 el-table-column:last-child {
-  margin-left: 10px;
+  margin-left: 50px;
 }
 .avatar{
   width: 100px;
   height: 100px;
+}
+.el-pagination{
+  position:absolute;
+  top:840px;
+  left:670px;
 }
 </style>

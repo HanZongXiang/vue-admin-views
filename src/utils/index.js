@@ -30,6 +30,22 @@ const xhr = {
                 reject(err)
             })
         })
+    },
+
+    fetch (url,data,config,methods) {
+        return new Promise((resolve,reject) => {
+            instance[methods](url,data,config).then(res => {
+                resolve(res.data)
+            }).catch(err => {
+                reject(err)
+            })
+        })
+    },
+    put (url,data,config) {
+        return this.fetch(url,data,config,'put')
+    },
+    delete (url,data,config) {
+        return this.fetch(url,data,config,'delete')
     }
 }
 

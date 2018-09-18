@@ -3,14 +3,14 @@
     <h2 class="title">欢迎来到cloudBook后台管理系统</h2>
     <div class="login-box">
         <h2 id="h2" class="login-box-title" ref="title">请登录</h2>
-        <el-form ref="form" :rules="rule">
+        <el-form ref="form" :rules="rules" :model="formData">
             <el-form-item label="用户名" prop="username">
                 <el-input v-model="formData.username" placeholder="请输入用户名"></el-input>
             </el-form-item>
             <el-form-item label="密码" prop="password">
-                <el-input v-model="formData.password" type="password" placeholder="请输入密码"></el-input>
+                <el-input v-model="formData.password" type="password" placeholder="请输入密码"  @keyup.enter.native="validateLogin"></el-input>
             </el-form-item>
-            <el-button @click="handleLogin" type="primary" class="btn" :loading="isLoading">登录</el-button>
+            <el-button @click="validateLogin" type="primary" class="btn" :loading="isLoading">登录</el-button>
         </el-form>
     </div>
   </div>
@@ -21,7 +21,6 @@ export default {
   name: "login",
   data() {
     const validateUsername = (rule,value,callback) => {
-        console.log(value);
         if (!value) {
             callback(new Error('必须输入合法用户名'))
         } else {
@@ -29,7 +28,6 @@ export default {
         }
     }
     const validatePassword = (rule,value,callback) => {
-        console.log(value);
 
         if (value && value.length>=5) {
             callback()
@@ -42,9 +40,9 @@ export default {
         username: "",
         password: ""
       },
-      rule:{
-          username:[{validator:validateUsername,trigger:'blur'}],
-          password:[{validator:validatePassword,trigger:'blur'}]
+      rules:{
+        username:[{validator:validateUsername,trigger:'blur'}],
+        password:[{validator:validatePassword,trigger:'blur'}]
       },
       isLoading: false
     };
@@ -58,6 +56,7 @@ export default {
         .then(res => {
           console.log(res);
           if (res.code == 200) {
+            this.$store.commit('CHANGE_USERINFO',res.data)
             this.$message.success(res.msg);
             setTimeout(() => {
               this.$router.push("/layout/index");
@@ -70,6 +69,15 @@ export default {
         .catch(err => {
           this.isLoading = false;
         });
+    },
+    validateLogin () {
+      this.$refs['form'].validate((valid) => {
+        if (valid) {
+          this.handleLogin()
+        } else {
+          return false
+        }
+      })
     }
   }, 
   created () {  //vue实例准备好的时候
@@ -104,7 +112,7 @@ export default {
     height: 300px;
     border: 1px solid #e8e8e8;
     border-radius: 6px;
-    padding: 40px;
+    padding: 20px 40px 20px 40px;
     background: #fff;
   }
   .login-box-title {

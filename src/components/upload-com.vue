@@ -1,6 +1,7 @@
 <template>
   <label class="container">
-    <i class="el-icon-plus"></i>
+    <i class="el-icon-plus" v-if="!imgUrl"></i>
+    <img :src="imgUrl" v-else>
     <input type="file" name="file" style="display:none" @change="upload">
   </label>
 </template>
@@ -10,10 +11,15 @@ import axios from 'axios'
 
 export default {
   name:'upload-com',
+  props: {
+    value:{
+      type:String
+    }
+  },
   data() {
       return {
         token:'',
-        imgUrl:''
+        imgUrl:this.value
       }
    },
   components: {
@@ -37,9 +43,16 @@ export default {
           'Content-Type':'multipart/form-data'
         }
       }).then(res => {
-        // this.imgUrl = res.data.url
+        this.imgUrl = res.data.url
         this.$emit('success',res.data.url)
+        this.$emit('input',res.data.url)
+        this.$emit('change',res.data.url)
       })
+    }
+  },
+  watch: {
+    value (val) {
+      this.imgUrl = val
     }
   },
   created () {
@@ -64,6 +77,11 @@ export default {
     transform: translate(-50%,-50%);
     font-size: 30px;
     color:rgb(110, 105, 105)
+  }
+  img{
+    width: 100%;
+    height: 100%;
+    display: block;
   }
 }
 </style>
