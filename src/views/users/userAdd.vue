@@ -1,5 +1,12 @@
 <template>
   <div class="add">
+    <div>
+      <el-breadcrumb separator-class="el-icon-arrow-right">
+        <el-breadcrumb-item :to="{path:'/layout/index'}">首页</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{path:'/layout/users'}">用户列表</el-breadcrumb-item>
+        <el-breadcrumb-item>添加管理员</el-breadcrumb-item>
+      </el-breadcrumb>
+    </div>
     <h2 class="title">添加管理员</h2>
     <div class="form-wrapper">
       <el-form :model="formData" size="small" label-width="100px" label-position="left">

@@ -9,7 +9,7 @@
 
     <el-table :data="tableData" class="table">
       <el-table-column prop="nickname" label="姓名" width="130"></el-table-column>
-      <el-table-column prop="createdTime" label="日期" width="210"></el-table-column>
+      <el-table-column prop="date" label="日期" width="220"></el-table-column>
       <el-table-column prop="desc" label="个性签名" width="350"></el-table-column>
       <el-table-column prop="" label="用户头像" width="200" height="100">
         <template slot-scope="scope">
@@ -18,7 +18,7 @@
       </el-table-column>
       <el-table-column label="操作" width="300">
         <template slot-scope="scope">
-          <el-button @click="handleDetails" size="small" type="primary">查看详细</el-button>
+          <el-button @click="handleDetails(scope.row._id)" size="small" type="primary">查看详细</el-button>
           <el-button @click="handleDelete(scope.row._id)" size="small" type="danger">删除</el-button>
         </template>
       </el-table-column>
@@ -52,12 +52,22 @@ export default {
         console.log(res);
         if(res.code == 200){
           this.count = res.count
-          this.tableData = res.data
+          this.tableData = res.data.map(item => {
+            let time = new Date(item.createdTime);
+            let year = time.getFullYear()
+            let month = time.getMonth() + 1
+            let day = time.getDate()
+            let hour = time.getHours()
+            let minute = time.getMinutes()
+            let second = time.getSeconds()
+            item.date = `${year}年${month}月${day}日${hour}时${minute}分${second}秒`
+            return item
+          })
         }
       })
     },
-    handleDetails () {
-      this.$router.push('/layout/userDetails')
+    handleDetails (id) {
+      this.$router.push(`/layout/userDetails?id=${id}`)
     },
     handleDelete (id) {
       this.$confirm('此操作将永久删除该管理员信息，是否继续?','警告',{

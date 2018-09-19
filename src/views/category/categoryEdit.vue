@@ -1,7 +1,7 @@
 <template>
   <div class="wrap">
     <div class="breadcrumb">
-      <el-breadcrumb>
+      <el-breadcrumb separator-class="el-icon-arrow-right">
         <el-breadcrumb-item :to="{ path:'/layout/index' }">首页</el-breadcrumb-item>
         <el-breadcrumb-item :to="{ path:'/layout/categoryList' }">分类列表</el-breadcrumb-item>
         <el-breadcrumb-item>编辑分类</el-breadcrumb-item>

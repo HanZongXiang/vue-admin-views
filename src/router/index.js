@@ -11,15 +11,20 @@ const components = {
   index:() => import('@/views/index/index'),
   users:() => import('@/views/users/index'),
   testUpload:() => import('@/views/testUpload/testUpload'),
-  userEdit:() => import('@/views/userEdit/userEdit'),
-  userAdd:() => import('@/views/userAdd/userAdd'),
+  userEdit:() => import('@/views/users/userEdit'),
+  userAdd:() => import('@/views/users/userAdd'),
+  userDetails:() => import('@/views/users/userDetails'),
   categoryList:() => import('@/views/category/categoryList'),
   addCategory:() => import('@/views/category/addCategory'),
   categoryEdit:() => import('@/views/category/categoryEdit'),
   bookList:() => import('@/views/book/bookList'),
   bookEdit:() => import('@/views/book/bookEdit'),
   bookAdd:() => import('@/views/book/bookAdd'),
-  swiperList:() => import('@/views/swiper/swiperList')
+  swiperList:() => import('@/views/swiper/swiperList'),
+  changePassword:() => import('@/views/users/changePassword'),
+  addSwiper:() => import('@/views/swiper/swiperAdd'),
+  swiperDisplay:() => import('@/views/swiper/swiperDisplay'),
+  editSwiper:() => import('@/views/swiper/swiperEdit')
 }
 
 let router =  new Router({
@@ -60,6 +65,14 @@ let router =  new Router({
           component: components.testUpload
         },
         {
+          path:'changePassword',
+          meta: {
+            title:'修改密码'
+          },
+          name:'changePassword',
+          component:components.changePassword
+        },
+        {
           path:'userEdit',
           meta: {
             title: '修改个人信息'
@@ -72,6 +85,14 @@ let router =  new Router({
             title: '添加管理员'
           },
           component: components.userAdd
+        },
+        {
+          path: 'userDetails',
+          meta: {
+            title: '管理员详情'
+          },
+          name:'userDetails',
+          component: components.userDetails
         },
         {
           path:'categoryList',
@@ -100,6 +121,7 @@ let router =  new Router({
           meta: {
             title:'图书管理'
           },
+          name:'bookList',
           component:components.bookList
         },
         {
@@ -125,6 +147,30 @@ let router =  new Router({
           },
           name:'swiper',
           component:components.swiperList
+        },
+        {
+          path:'swiper/editSwiper',
+          meta: {
+            title:'修改轮播图'
+          },
+          name:'swiperEdit',
+          component:components.editSwiper
+        },
+        {
+          path:'swiper/addSwiper',
+          meta: {
+            title:'添加轮播图'
+          },
+          name:'addSwiper',
+          component:components.addSwiper
+        },
+        {
+          path:'swiper/display',
+          meta: {
+            title:'轮播图展示'
+          },
+          name:'swiperDisplay',
+          component:components.swiperDisplay
         }
       ]
     }

@@ -40,7 +40,7 @@ export default {
   },
   methods: {
     getData () {
-      this.$axios.get('/book').then(res => {
+      this.$axios.get('/book',{size:888}).then(res => {
         console.log(res);
         this.tableData = res.data
       })

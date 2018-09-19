@@ -3,7 +3,7 @@
     <div class="header">
       <!-- <h2 class="title">云书后台操作系统</h2> -->
       <div class="tab">
-        <h2 class="title">云书后台管理系统</h2>
+        <h2 class="index-title">云书后台管理系统</h2>
         <div class="user-center">
           <el-dropdown @command="handleCommand">
             <span class="el-dropdown-link">
@@ -32,8 +32,7 @@
           <el-menu-item-group>
             <el-menu-item index="/layout/index">首页</el-menu-item>
             <el-menu-item index="/login">登录页</el-menu-item>
-            <el-menu-item index="/layout/users">用户管理页</el-menu-item>
-            <el-menu-item index="/layout/userAdd">添加管理员</el-menu-item>
+            
             <el-menu-item index="/layout/testUpload">图片上传测试页</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
@@ -53,7 +52,9 @@
             <span slot="title">管理员用户</span>
           </template>
           <el-menu-item-group>
-            <el-menu-item index="">修改密码</el-menu-item>
+            <el-menu-item index="/layout/users">用户列表</el-menu-item>
+            <el-menu-item index="/layout/userAdd">添加管理员</el-menu-item>
+            <el-menu-item index="/layout/changePassword">修改密码</el-menu-item>
             <el-menu-item index="/layout/userEdit">修改个人信息</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
@@ -74,7 +75,8 @@
           </template>
           <el-menu-item-group>
             <el-menu-item index="/layout/swiper">轮播图列表</el-menu-item>
-            <el-menu-item index="">添加轮播图</el-menu-item>
+            <el-menu-item index="/layout/swiper/addSwiper">添加轮播图</el-menu-item>
+            <el-menu-item index="/layout/swiper/display">轮播图展示</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
       </el-menu>
@@ -110,6 +112,8 @@ export default {
             this.$message.success('退出登录成功')
             this.$store.commit('CHANGE_USERINFO',null)
             this.$router.push('/login')
+          } else {
+            this.$message.error(res.msg)
           }
         })
       }
@@ -123,7 +127,7 @@ export default {
 
 <style scoped lang="scss">
 .layout{
-    .title{
+    .index-title{
         text-align: center;
         height: 50px;
         line-height: 80px;

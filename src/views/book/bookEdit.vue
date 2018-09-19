@@ -8,8 +8,10 @@
       </el-breadcrumb>
     </div>
     
+    <h3 class="title">编辑图书</h3>
+
     <div class="form-wrap">
-      <el-form>
+      <el-form label-width="80px" label-position="left">
         <el-form-item label="书籍名">
           <el-input v-model="formData.title"></el-input>
         </el-form-item>
@@ -81,7 +83,9 @@ export default {
       this.$axios.put('/book',params).then(res => {
         if (res.code == 200) {
           this.$message.success(res.msg)
-          this.$router.push('/layout/book')
+          setTimeout(() => {
+            this.$router.push('/layout/book')
+          }, 1000);
         }
       })
     }
@@ -95,4 +99,8 @@ export default {
 </script>
 
 <style scoped>
+.form-wrap{
+  width: 600px;
+  margin-top: 15px;
+}
 </style>

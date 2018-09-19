@@ -1,7 +1,7 @@
 <template>
   <div class="add-category">
     <div class="breadcrumb">
-      <el-breadcrumb>
+      <el-breadcrumb separator-class="el-icon-arrow-right">
         <el-breadcrumb-item :to="{ path:'/layout/index' }">首页</el-breadcrumb-item>
         <el-breadcrumb-item :to="{ path:'/layout/categoryList' }">分类列表</el-breadcrumb-item>
         <el-breadcrumb-item>添加分类</el-breadcrumb-item>
@@ -46,6 +46,8 @@ export default {
         if (res.code == 200) {
           this.$message.success(res.msg)
           this.$router.push('/layout/categoryList')
+        } else {
+          this.$message.error(res.msg)
         }
       })
     }

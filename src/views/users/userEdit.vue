@@ -1,5 +1,12 @@
 <template>
   <div class="edit">
+    <div class="breadcrumb">
+      <el-breadcrumb separator-class="el-icon-arrow-right">
+        <el-breadcrumb-item :to="{path:'/layout/index'}">首页</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{path:'/layout/users'}">用户列表</el-breadcrumb-item>
+        <el-breadcrumb-item>修改个人信息</el-breadcrumb-item>
+      </el-breadcrumb>
+    </div>
     <h2 class="title">修改个人信息</h2>
     <div class="form-wrapper">
       <el-form :model="formData" size="small" label-width="80px" label-position="left">
@@ -71,12 +78,6 @@ export default {
 </script>
 
 <style scoped>
-.title{
-  font-weight: 400;
-  padding-left: 10px;
-  border-left:2px solid rgb(54, 52, 54);
-  line-height: 1.5;
-}
 .form-wrapper{
   width: 600px;
   margin-top: 20px;
