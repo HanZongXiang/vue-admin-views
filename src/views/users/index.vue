@@ -7,9 +7,11 @@
       </el-breadcrumb>
     </div>
 
+    <i title="添加管理员" @click="handleAdd" class="el-icon-circle-plus-outline add"><span>添加管理员</span></i>
+
     <el-table :data="tableData" class="table">
-      <el-table-column prop="nickname" label="姓名" width="130"></el-table-column>
-      <el-table-column prop="date" label="日期" width="220"></el-table-column>
+      <el-table-column prop="nickname" label="姓名" width="180"></el-table-column>
+      <el-table-column prop="date" label="日期" width="260"></el-table-column>
       <el-table-column prop="desc" label="个性签名" width="350"></el-table-column>
       <el-table-column prop="" label="用户头像" width="200" height="100">
         <template slot-scope="scope">
@@ -66,6 +68,9 @@ export default {
         }
       })
     },
+    handleAdd () {
+      this.$router.push({name:'userAdd'})
+    },
     handleDetails (id) {
       this.$router.push(`/layout/userDetails?id=${id}`)
     },
@@ -118,5 +123,17 @@ el-table-column:last-child {
   position:absolute;
   top:840px;
   left:670px;
+}
+.add{
+  position: absolute;
+  font-size: 20px;
+  top:100px;
+  right:183px;
+  z-index: 999;
+  color:#58636F;
+  cursor: pointer;
+}
+.add span{
+  margin-left:5px;
 }
 </style>

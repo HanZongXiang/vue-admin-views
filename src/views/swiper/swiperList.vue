@@ -7,27 +7,32 @@
       </el-breadcrumb>
     </div>
     <h3 class="title">轮播图列表
-      <!-- <i title="添加轮播图" class="el-icon-circle-plus-outline"></i> -->
+      <i style="cursor:pointer" title="添加轮播图" class="el-icon-circle-plus-outline" @click="handleAdd"></i>
     </h3>
     <el-table :data="tableData">
-      <el-table-column label="轮播图头图">
+      <el-table-column label="轮播图头图" width="200">
         <template slot-scope="scope">
           <img :src="scope.row.img" class="swiper-img">
         </template>
       </el-table-column>
-      <el-table-column label="分类排序">
+      <el-table-column label="轮播图标题" width="200">
+        <template slot-scope="scope">
+          <span>{{scope.row.title}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="分类排序" width="150">
         <template slot-scope="scope">
           <el-tag size="medium" style="cursor:pointer">{{scope.row.sort}}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column label="书籍头图">
+      <el-table-column label="书籍头图" width="150">
         <template slot-scope="scope">
           <img :src="scope.row.book.img" class="book-img">
         </template>
       </el-table-column>
-      <el-table-column label="标题">
+      <el-table-column label="书籍标题">
         <template slot-scope="scope">
-          <span>{{scope.row.title}}</span>
+          <span>{{scope.row.book.title}}</span>
         </template>
       </el-table-column>
       <el-table-column label="操作">
@@ -99,6 +104,9 @@ export default {
           message:'已取消删除'
         })
       })
+    },
+    handleAdd () {
+      this.$router.push({name:"addSwiper"})
     }
   },
   created () {
@@ -125,4 +133,5 @@ export default {
   top:845px;
   left:720px;
 }
+
 </style>

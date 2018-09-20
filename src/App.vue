@@ -33,4 +33,13 @@ export default {
 .fl{
   float: left;
 }
+.fr{
+  float: right;
+}
+.el-table {
+  text-align: center;
+}
+.el-table th > .cell {
+  text-align: center;
+}
 </style>

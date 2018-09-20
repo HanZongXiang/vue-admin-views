@@ -17,9 +17,11 @@ const components = {
   categoryList:() => import('@/views/category/categoryList'),
   addCategory:() => import('@/views/category/addCategory'),
   categoryEdit:() => import('@/views/category/categoryEdit'),
+  categoryBook:() => import('@/views/category/categoryBook'),
   bookList:() => import('@/views/book/bookList'),
   bookEdit:() => import('@/views/book/bookEdit'),
   bookAdd:() => import('@/views/book/bookAdd'),
+  bookDetails:() => import('@/views/book/bookDetails'),
   swiperList:() => import('@/views/swiper/swiperList'),
   changePassword:() => import('@/views/users/changePassword'),
   addSwiper:() => import('@/views/swiper/swiperAdd'),
@@ -84,6 +86,7 @@ let router =  new Router({
           meta: {
             title: '添加管理员'
           },
+          name:'userAdd',
           component: components.userAdd
         },
         {
@@ -117,6 +120,14 @@ let router =  new Router({
           component: components.categoryEdit
         },
         {
+          path:'categoryBook',
+          meta: {
+            title:'分类图书'
+          },
+          name:'categoryBook',
+          component:components.categoryBook
+        },
+        {
           path:'book',
           meta: {
             title:'图书管理'
@@ -139,6 +150,14 @@ let router =  new Router({
           },
           name:'bookAdd',
           component:components.bookAdd
+        },
+        {
+          path:'book/details',
+          meta: {
+            title:'书籍详情'
+          },
+          name:'bookDetails',
+          component:components.bookDetails
         },
         {
           path:'swiper',

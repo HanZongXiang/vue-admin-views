@@ -20,9 +20,12 @@
     </div>
     <div class="sidebar">
       <el-menu
-        :router="true"
-        background-color="#545c64"
-        text-color="#fff"
+        :router = "true"
+        background-color = "#545c64"
+        text-color = "#fff"
+        @open = "handleOpen"
+        @close = "handleClose"
+        @select = "handleSelect"
       >
         <el-submenu index="1">
           <template slot="title">
@@ -32,21 +35,11 @@
           <el-menu-item-group>
             <el-menu-item index="/layout/index">首页</el-menu-item>
             <el-menu-item index="/login">登录页</el-menu-item>
-            
             <el-menu-item index="/layout/testUpload">图片上传测试页</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
+
         <el-submenu index="2">
-          <template slot="title">
-            <i class="el-icon-menu"></i>
-            <span slot="title">分类管理</span>
-          </template>
-          <el-menu-item-group>
-            <el-menu-item index="/layout/categoryList">分类列表</el-menu-item>
-            <el-menu-item index="/layout/addCategory">添加分类</el-menu-item>
-          </el-menu-item-group>
-        </el-submenu>
-        <el-submenu index="3">
           <template slot="title">
             <i class="el-icon-edit-outline"></i>
             <span slot="title">管理员用户</span>
@@ -58,6 +51,18 @@
             <el-menu-item index="/layout/userEdit">修改个人信息</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
+
+        <el-submenu index="3">
+          <template slot="title">
+            <i class="el-icon-menu"></i>
+            <span slot="title">分类管理</span>
+          </template>
+          <el-menu-item-group>
+            <el-menu-item index="/layout/categoryList">分类列表</el-menu-item>
+            <el-menu-item index="/layout/addCategory">添加分类</el-menu-item>
+          </el-menu-item-group>
+        </el-submenu>
+        
         <el-submenu index="4">
           <template slot="title">
             <i class="el-icon-document"></i>
@@ -66,8 +71,10 @@
           <el-menu-item-group>
             <el-menu-item index="/layout/book">图书列表</el-menu-item>
             <el-menu-item index="/layout/book/addBook">添加图书</el-menu-item>
+            <el-menu-item index="/layout/book/details">图书详情</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
+
         <el-submenu index="5">
           <template slot="title">
             <i class="el-icon-star-on"></i>
@@ -117,7 +124,10 @@ export default {
           }
         })
       }
-    }
+    },
+    handleOpen () {},
+    handleClose () {},
+    handleSelect () {}
   },
   computed: {
     ...mapState(['userInfo'])

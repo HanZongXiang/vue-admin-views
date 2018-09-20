@@ -1,7 +1,7 @@
 <template>
   <div class="add-book">
     <div class="breadcrumb">
-      <el-breadcrumb>
+      <el-breadcrumb  separator-class="el-icon-arrow-right">
         <el-breadcrumb-item :to="{path:'/layout/index'}">首页</el-breadcrumb-item>
         <el-breadcrumb-item :to="{path:'/layout/book'}">图书列表</el-breadcrumb-item>
         <el-breadcrumb-item>添加图书</el-breadcrumb-item>

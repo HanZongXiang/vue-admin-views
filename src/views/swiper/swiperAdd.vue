@@ -61,6 +61,14 @@
             </template>
           </el-table-column>
         </el-table>
+
+        <el-pagination
+          background
+          layout="prev,pager,next"
+          @current-change="pageChange"
+          :page-size="4"
+          :total="bookCount"
+        ></el-pagination>
       </el-dialog>
     </div>
   </div>
@@ -83,7 +91,8 @@ export default {
       categoryOptions:[],
       isShowDialog:false,
       bookData:[],
-      bookCount:0
+      bookCount:0,
+      page:1
     }
    },
   components: {
@@ -95,7 +104,7 @@ export default {
       this.categoryOptions = res.data
     },
     async getBookData () {
-      const res = await this.$axios.get(`/category/${this.formData.category}/books`)
+      const res = await this.$axios.get(`/category/${this.formData.category}/books`,{pn:this.page,size:4})
       console.log(res);
       this.bookData = res.data.books
       this.bookCount = res.count
@@ -127,6 +136,11 @@ export default {
           }
         })
       }
+    },
+    pageChange (page) {
+      console.log(page);
+      this.page = page
+      this.getBookData()
     }
   },
   created () {
@@ -177,5 +191,15 @@ export default {
       color:#333;
       margin:40px 20px;
     }
+    .el-dialog__header {
+      text-align: center;
+    }
+    .el-table th>.cell {
+      text-align: center;
+    }
+    .el-dialog__body {
+      text-align: center;
+    }
   }
 </style>
+

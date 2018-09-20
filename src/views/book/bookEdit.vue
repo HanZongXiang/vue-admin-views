@@ -1,7 +1,7 @@
 <template>
   <div class="book-edit">
     <div>
-      <el-breadcrumb>
+      <el-breadcrumb  separator-class="el-icon-arrow-right">
         <el-breadcrumb-item :to="{ path:'/layout/index' }">首页</el-breadcrumb-item>
         <el-breadcrumb-item :to="{ path:'/layout/book' }">图书列表</el-breadcrumb-item>
         <el-breadcrumb-item>编辑图书</el-breadcrumb-item>
@@ -68,7 +68,7 @@ export default {
     //获取分类
     getCategory () {
       return new Promise((resolve,reject) => {
-        this.$axios.get('/category').then(res => {
+        this.$axios.get('/category',{size:666}).then(res => {
           console.log(res);
           this.typeOptions = res.data
           resolve(res)
