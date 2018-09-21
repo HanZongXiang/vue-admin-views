@@ -32,7 +32,8 @@
           <template slot-scope="scope">
             <span>
               <i class="el-icon-time"></i>
-              <span>{{scope.row.createTime}}</span>
+              <!-- <span>{{scope.row.createTime}}</span> -->
+              <timer :time="scope.row.createTime"></timer>
             </span>
           </template>
         </el-table-column>
@@ -58,6 +59,8 @@
 </template>
 
 <script>
+import timer from '@/components/timer'
+
 export default {
   name:'',
   data() {
@@ -68,7 +71,7 @@ export default {
     }
   },
   components: {
-
+    timer
   },
   methods: {
     async getBookData () {

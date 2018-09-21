@@ -16,13 +16,13 @@
       </el-form>
     </div>
     
-    <div class="detail-wrap">
+    <div class="detail-wrap" v-show="isShow">
       <div class="top">
         <h4 class="author">作者：{{details.author}}</h4>
         <h4>标题：{{details.title}}</h4>
         <h4>简介：{{details.desc}}</h4>
         <br>
-        <span><i class="el-icon-time"></i> 添加时间：{{details.createTime}}</span>
+        <span><i class="el-icon-time"></i> 添加时间：<timer :time="details.createTime"></timer></span>
         <div class="avatar-wrap">
           <span class="fl"><i class="el-icon-picture"></i> 图书封面：</span>
           <img :src="img" class="avatar">
@@ -39,7 +39,8 @@
 </template>
 
 <script>
-import uploadImg from '@/components/upload-com'
+// import uploadImg from '@/components/upload-com'
+import timer from '@/components/timer'
 
 export default {
   name:'bookDetails',
@@ -47,23 +48,32 @@ export default {
     return {
       details:[],
       img:'',
-      likenums:0
+      likenums:0,
+      isShow:false
     }
   },
   components: {
-    uploadImg
+    // uploadImg
+    timer
   },
   methods: {
     async getBookDetails () {
       const res = await this.$axios.get(`/book/${this.$route.query.id}`)
       console.log(res);
       if (res.code == 200) {
-        // this.$message.success('获取详情成功')
+        this.$message.success('获取详情成功')
         this.details = res.data
         this.img = res.data.img
         this.likenums = res.data.like_this_users.length
       } else {
         this.$message.error(res.msg)
+      }
+    },
+    toggleState () {
+      if (this.$route.query.id) {
+        this.isShow = true
+      } else {
+        this.isShow = false
       }
     }
   },
@@ -71,6 +81,9 @@ export default {
     if (this.$route.query.id) {
       this.getBookDetails()
     }
+    this.toggleState()
+  },
+  beforeRouteUpdate () {
   }
 }
 </script>

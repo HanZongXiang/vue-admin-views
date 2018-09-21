@@ -3,7 +3,7 @@
     <div class="header">
       <!-- <h2 class="title">云书后台操作系统</h2> -->
       <div class="tab">
-        <h2 class="index-title">云书后台管理系统</h2>
+        <h2 class="index-title">云书后台管理系统{{title}}</h2>
         <div class="user-center">
           <el-dropdown @command="handleCommand">
             <span class="el-dropdown-link">
@@ -27,7 +27,7 @@
         @close = "handleClose"
         @select = "handleSelect"
       >
-        <el-submenu index="1">
+        <el-submenu index="用户管理">
           <template slot="title">
             <i class="el-icon-location"></i>
             <span>用户管理</span>
@@ -39,7 +39,7 @@
           </el-menu-item-group>
         </el-submenu>
 
-        <el-submenu index="2">
+        <el-submenu index="管理员用户">
           <template slot="title">
             <i class="el-icon-edit-outline"></i>
             <span slot="title">管理员用户</span>
@@ -52,7 +52,7 @@
           </el-menu-item-group>
         </el-submenu>
 
-        <el-submenu index="3">
+        <el-submenu index="分类管理">
           <template slot="title">
             <i class="el-icon-menu"></i>
             <span slot="title">分类管理</span>
@@ -63,7 +63,7 @@
           </el-menu-item-group>
         </el-submenu>
         
-        <el-submenu index="4">
+        <el-submenu index="图书管理">
           <template slot="title">
             <i class="el-icon-document"></i>
             <span slot="title">图书管理</span>
@@ -75,7 +75,7 @@
           </el-menu-item-group>
         </el-submenu>
 
-        <el-submenu index="5">
+        <el-submenu index="轮播图管理">
           <template slot="title">
             <i class="el-icon-star-on"></i>
             <span slot="title">轮播图管理</span>
@@ -103,7 +103,9 @@ export default {
   name:'layout',
   data() {
       return {
-
+        title:'',
+        text:'',
+        path:''
       }
    },
   components: {
@@ -125,12 +127,31 @@ export default {
         })
       }
     },
-    handleOpen () {},
-    handleClose () {},
-    handleSelect () {}
+    handleOpen (key,keyPath) {
+      this.title = ` > ${key}`
+    },
+    handleClose (key,keyPath) {
+      this.title = ''
+    },
+    handleSelect (key,keyPath) {
+      this.title = ` > ${keyPath[0]}`
+    }
+  },
+  beforeRouteUpdate(to,form,next) {
+    this.path = to.path
+    if (to.meta.title) {
+      this.text = ` > ${to.meta.title}`
+      this.title = this.title + this.text
+    }
+    next()
   },
   computed: {
     ...mapState(['userInfo'])
+  },
+  watch: {
+    path () {
+      this.title = this.text
+    }
   }
 }
 </script>
